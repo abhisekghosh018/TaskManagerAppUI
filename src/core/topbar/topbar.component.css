@@ -1,0 +1,13 @@
+.nav-link:hover {
+ background-color: #495057;
+ border-radius: 5px;
+}
+
+.navbar-brand-brand-name {
+ color: #f1c40f;
+ font-style: italic;
+ text-decoration: none;
+ font-family: monospace;
+ font-size: 24px;
+
+}
