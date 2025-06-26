@@ -1,1 +1,87 @@
-<p>tasks works!</p>
+<div class="container-fluid">
+ <h4 class="text-light mb-4">Assign New Tasks</h4>
+
+ <form>
+
+  <!--Form begins-->
+  <div class="row col-md-12 col-lg-12 col-sm-6 custom-border">
+
+   <div class="row mb-3 align-items-center">
+    <label for="member" class="col-sm-4 col-form-label text-light">Member</label>
+    <div class="col-sm-8">
+     <select id="member" class="form-select custom-textbox">
+      <option value="" disabled selected>Select Member</option>
+      <option value="low">Abhisek</option>
+      <option value="medium">Ram Kumar</option>
+      <option value="high">Papri</option>
+     </select>
+    </div>
+   </div>
+
+
+   <div class="row mb-3 align-items-center">
+    <label for="title" class="col-sm-4 col-form-label text-light">Title</label>
+    <div class="col-sm-8">
+     <input type="text" id="title" class="form-control custom-textbox" placeholder="Title" />
+    </div>
+   </div>
+
+   <!-- Repeat for more fields -->
+   <div class="row mb-3 align-items-center">
+    <label for="description" class="col-sm-4 col-form-label text-light">Description</label>
+    <div class="col-sm-8">
+     <input type="text" id="Description" class="form-control custom-textbox" placeholder="Description" />
+    </div>
+   </div>
+
+   <div class="row mb-3 align-items-center">
+    <label for="startDate" class="col-sm-4 col-form-label text-light">Start Date</label>
+    <div class="col-sm-3">
+     <input type="text" id="startDate" class="form-control custom-textbox" placeholder="Start Date" />
+    </div>
+
+    <label for="endDate" class="col-sm-2 col-form-label text-light">Due Date</label>
+    <div class="col-sm-3">
+     <input type="text" id="endDate" class="form-control custom-textbox" placeholder="Due Date" />
+    </div>
+
+   </div>
+
+   <div class="row mb-3 align-items-center">
+    <label for="priority" class="col-sm-4 col-form-label text-light">Priority</label>
+    <div class="col-sm-8">
+     <select id="priority" class="form-select custom-textbox">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+     </select>
+    </div>
+   </div>
+
+   <div class="row mb-3 align-items-center">
+    <label for="statusToggle" class="col-sm-4 col-form-label text-light">Status</label>
+    <div class="col-sm-8">
+     <div class="form-check form-switch d-flex align-items-center">
+      <input class="form-check-input toggle-switch" type="checkbox" id="statusToggle" name="status" />
+      <label class="form-check-label text-light ms-2" for="statusToggle">
+
+      </label>
+     </div>
+    </div>
+   </div>
+
+   <!-- Submit Button -->
+   <div class="row">
+    <div class="col-sm-6 offset-sm-4">
+     <!--<button type="submit" class="btn btn-warning px-4">Create</button> -->
+     <button type="submit" class="custom-button">
+      <i class="bi bi-person-plus me-1"></i> Create Member
+     </button>
+
+    </div>
+   </div>
+  </div>
+
+
+ </form>
+</div>

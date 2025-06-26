@@ -11,3 +11,7 @@
  font-size: 24px;
 
 }
+
+.border-bottom-color-style {
+ border-bottom: #555 1px solid;
+}

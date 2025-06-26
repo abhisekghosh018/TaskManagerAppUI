@@ -1,0 +1,18 @@
+<!-- Topbar -->
+<taskly-topbar></taskly-topbar>
+
+<!-- Layout -->
+<div class="d-flex">
+ <!-- Sidebar -->
+ <taskly-sidebar></taskly-sidebar>
+
+ <!-- Page content -->
+ <div class="flex-grow-1 p-3" style="background-color:#292b2b;color: white;">
+  <router-outlet></router-outlet>
+ </div>
+</div>
+<footer class="footer bg-dark text-light py-3 border-top">
+ <div class="container text-center">
+  <small>&copy; 2025 Taskly. All rights reserved.</small>
+ </div>
+</footer>

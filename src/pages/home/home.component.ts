@@ -3,7 +3,7 @@ import { AppComponent } from "../../app/app.component";
 
 @Component({
   selector: 'taskly-home',
-  imports: [AppComponent],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
