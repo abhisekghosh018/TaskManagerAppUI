@@ -1,0 +1,17 @@
+.custom-border {
+  border: #555 1px solid;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.table-dark-custom {
+  background-color: #292b2b !important;
+  color: white;
+}
+
+.table-dark-custom th,
+.table-dark-custom td {
+  background-color: #292b2b !important;
+  color: white !important;
+  border-color: #444 !important;
+}

@@ -3,6 +3,7 @@ import { MainLayoutComponent } from '../core/layouts/main-layout/main-layout.com
 import { HomeComponent } from '../pages/home/home.component';
 import { MemberComponent } from '../pages/member/member.component';
 import { TasksComponent } from '../pages/tasks/tasks.component';
+import { MemberlistComponent } from '../pages/memberlist/memberlist.component';
 
 export const routes: Routes = [
 
@@ -12,7 +13,8 @@ export const routes: Routes = [
   children: [
    { path: '', redirectTo: 'home', pathMatch: 'full' },
    { path: 'home', component: HomeComponent },
-   { path: 'createmember', component: MemberComponent },
+   { path: 'member/createmember', component: MemberComponent },
+   { path: 'member/memberlist', component: MemberlistComponent },
    { path: 'tasks', component: TasksComponent },
   ]
 
