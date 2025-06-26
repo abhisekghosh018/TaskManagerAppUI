@@ -18,41 +18,39 @@
       </a>
     </li>
     -->
-
-    <li class="nav-item mb-2">
-      <a class="nav-link text-white d-flex justify-content-between align-items-center" (click)="toggleMemberMenu()">
-        <span>
-          <i class="bi bi-people me-2"></i>
-          <span *ngIf="!isCollapsed">Members</span>
-        </span>
-        <i *ngIf="!isCollapsed" class="bi" [ngClass]="isMemberCollasped ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
-      </a>
-
-      <!-- Submenu -->
-      <ul *ngIf="isMemberCollasped && !isCollapsed" class="nav flex-column ms-4">
-        <li class="nav-item">
-          <a routerLink="/member/list" class="nav-link text-white" routerLinkActive="active-link">List Members</a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="createmember" class="nav-link text-white" routerLinkActive="active-link">Create
-            Member</a>
-        </li>
-      </ul>
-    </li>
-
-
-
-
-
-    <li class="nav-item mb-2">
-      <a routerLink="/tasks" class="nav-link text-white" routerLinkActive="active-link">
-        <i class="bi bi-kanban me-2"></i> <span *ngIf="!isCollapsed">Tasks</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/settings" class="nav-link text-white">
-        <i class="bi bi-gear me-2"></i> <span *ngIf="!isCollapsed">Settings</span>
-      </a>
-    </li>
   </ul>
+
+  <li class="nav-item mb-2">
+    <a class="nav-link text-white d-flex justify-content-between align-items-center" (click)="toggleMemberMenu()">
+      <span>
+        <i class="bi bi-people me-2"></i>
+        <span *ngIf="!isCollapsed">Members</span>
+      </span>
+      <i *ngIf="!isCollapsed" class="bi" [ngClass]="isMemberCollasped ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+    </a>
+
+    <!-- Submenu -->
+    <ul *ngIf="isMemberCollasped && !isCollapsed" class="nav flex-column ms-4">
+      <li class="nav-item">
+        <a routerLink="/member/list" class="nav-link text-white" routerLinkActive="active-link">List Members</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="createmember" class="nav-link text-white" routerLinkActive="active-link">Create
+          Member</a>
+      </li>
+    </ul>
+  </li>
+
+
+  <li class="nav-item mb-2">
+    <a routerLink="/tasks" class="nav-link text-white" routerLinkActive="active-link">
+      <i class="bi bi-kanban me-2"></i> <span *ngIf="!isCollapsed">Tasks</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="/settings" class="nav-link text-white">
+      <i class="bi bi-gear me-2"></i> <span *ngIf="!isCollapsed">Settings</span>
+    </a>
+  </li>
+
 </div>
