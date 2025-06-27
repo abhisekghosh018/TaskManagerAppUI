@@ -2,73 +2,38 @@
  <h4 class="text-light mb-4">Member Details</h4>
 
  <div class="row col-md-12 col-lg-12 col-sm-12 custom-border">
+
+  @if(members.length > 0 ){
   <table class="table text-light table-dark-custom">
    <thead>
     <tr>
+     <th>Sl.No</th>
      <th>Status</th>
      <th>Name</th>
      <th>Email</th>
      <th>Repo</th>
      <th></th>
+     <th></th>
     </tr>
    </thead>
    <tbody>
+    @for (item of members; track $index) {
     <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
+     <td>{{$index + 1}}</td>
+     <td>{{item.status || "Unknown"}}</td>
+     <td>{{item.firstName}} {{item.lastName}}</td>
+     <td>{{item.workEmail}}</td>
+     <td>{{item.repo || "Pending.."}}</td>
+     <td><input type="button" class="custom-button" value="Edit" id="{{item.id}}" /></td>
+     <td><input type="button" class="custom-button" value="View" id="{{item.id}}" /></td>
     </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag5292sdsd56gmail.com</td>
-     <td>GitHub</td>
-    </tr>
-    <tr>
-     <td>Active</td>
-     <td>Abhisek Ghosh</td>
-     <td>ag529256gmail.com</td>
-     <td>GitHub</td>
-
-    </tr>
+    }
    </tbody>
   </table>
+  }
+  @else{
+  <h5>No data were found</h5>
+  }
+
  </div>
 </div>
