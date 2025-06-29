@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { API_COFING as API_CONFING } from '../static/urls';
 
 export interface member {
   id: string;
@@ -8,7 +9,11 @@ export interface member {
   lastName: string;
   workEmail: string;
   status: string;
-  repo: string
+  role: string;
+}
+export interface memberResponse<T> {
+  data: T[];
+  totalCount: number
 }
 
 
@@ -21,15 +26,27 @@ export class MemberService {
   constructor(private http: HttpClient) { }
 
 
-  getMembers(pageNumber: number): Observable<member[]> {
-    const apiurl = `https://localhost:7215/api/Member/getallmembers?pageNumber=${pageNumber}`;
+  getMembers(pageNumber: number): Observable<memberResponse<member>> {
+    const apiurl = `${API_CONFING.baseUrl}Member/getallmembers?pageNumber=${pageNumber}`;
 
     return this.http.get<any>(apiurl).pipe(
       map(response => {
-        console.log("📦 Full API response:", response);
-        console.log("✅ Extracted members array:", response.data);
-        return response.data;
+        return {
+          data: response.data,
+          totalCount: response.totalCount
+        } as memberResponse<member>
       })
+    );
+  }
+
+
+  getMemberByid(getmemberbyid: string): Observable<member[]> {
+    const apiUrl = `${API_CONFING.baseUrl}member/getmemberbyid?id=${getmemberbyid}`
+
+    return this.http.get<any>(apiUrl).pipe(map(response => {
+      console.log("Member Data", response.data)
+      return response.data;
+    })
     );
   }
 

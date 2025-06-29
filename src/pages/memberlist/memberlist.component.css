@@ -15,3 +15,14 @@
   color: white !important;
   border-color: #444 !important;
 }
+
+.custom-textbox {
+  background-color: #292b2b;
+  color: white;
+  border: 1px solid #555;
+}
+::placeholder {
+  color: #555;
+  opacity: 1;
+  /* Ensure full visibility */
+}
