@@ -26,3 +26,16 @@
   opacity: 1;
   /* Ensure full visibility */
 }
+.custom-button {
+  background-color: #292b2b;
+  border: #555 2px solid;
+  color: #f1c40f;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}

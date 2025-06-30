@@ -50,4 +50,16 @@ export class MemberService {
     );
   }
 
+  filterMember(firstName: string, lastName: string, email: string, page: number): Observable<memberResponse<member>> {
+    const apiUrl = `${API_CONFING.baseUrl}member/filterMember?firstName=${firstName}?lastName=${lastName}?email=${email}?page=${page}`
+
+    return this.http.get<any>(apiUrl).pipe(map(response => {
+      return {
+        data: response.data,
+        totalCount: response.totalCount
+      } as memberResponse<member>
+    })
+    );
+  }
+
 }

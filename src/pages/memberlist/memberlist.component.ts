@@ -1,6 +1,12 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, viewChild, } from '@angular/core';
 import { member, MemberService } from '../../services/member.service';
 import { CommonModule, NgIf } from '@angular/common';
+
+// Import Bootstrap JS (make sure bootstrap is installed via npm)
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+// Declare bootstrap for TypeScript
+declare var bootstrap: any;
 
 @Component({
   selector: 'taskly-memberlist',
@@ -10,11 +16,13 @@ import { CommonModule, NgIf } from '@angular/common';
   styleUrl: './memberlist.component.css'
 })
 export class MemberlistComponent implements OnInit {
-  @ViewChild('memberModal') memberModalElement!: ElementRef;
+
   members: member[] = [];
   selectMember: any;
   showModal = false;
 
+  @ViewChild('memberModal') modelRef!: ElementRef
+  modalInstance: any;
   totalCount: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
@@ -25,8 +33,12 @@ export class MemberlistComponent implements OnInit {
     this.getMembers(this.currentPage)
   }
 
+  ngAfterViewInit() {
+    this.modalInstance = new bootstrap.Modal(this.modelRef.nativeElement);
+  }
+
   getMembers(page: number): void {
-    debugger
+
     this.currentPage = page;
 
     this.memberService.getMembers(this.currentPage).subscribe({
@@ -72,7 +84,7 @@ export class MemberlistComponent implements OnInit {
 
         this.selectMember = res;
         console.log("Data in component", this.selectMember)
-        this.showModal = true;
+        this.modalInstance.show();
       },
       error(err) {
         console.error("Member API error", err)
@@ -84,5 +96,9 @@ export class MemberlistComponent implements OnInit {
     this.selectMember = null; // or undefined
     this.showModal = false;
   }
+
+  // onFilter(irstName: string, lastName: string, email: string, page: number) {
+
+  // }
 
 }

@@ -1,95 +1,152 @@
 <div class="container-fluid">
- <h5 class="text-light mb-4">Member Details</h5>
+  <h5 class="text-light mb-4">Member Details</h5>
+  <!--Filter bar-->
+  <div class="row align-items-center mb-3">
+    <div class="col-md-3">
+      <label for="searchTxt" class="form-label text-light">Filter by</label>
+    </div>
 
- <div class="row mb-3 align-items-center">
-  <label for="searchTxt" class="col-sm-4 col-form-label text-light">Filter by </label>
-  <div class="col-sm-8">
-   <input type="text" id="searchTxt" class="form-control custom-textbox"
-    placeholder="Filter memeber by First name, Last name and Email" />
+    <div class="col-md-5">
+      <input type="text" id="searchTxt" class="form-control custom-textbox"
+        placeholder="Filter member by First name, Last name and Email" />
+    </div>
+
+    <div class="col-md-4">
+      <button type="submit" class="custom-button">
+        <i class="bi bi-funnel me-1"></i> Filter
+      </button>
+    </div>
   </div>
- </div>
 
- <div class="col-md-12 col-lg-12 col-sm-12 custom-border">
 
-  @if(members.length > 0 ){
-  <table class="table table-responsive-md text-light table-dark-custom">
-   <thead>
-    <tr>
-     <th>Sl.No</th>
-     <th>Status</th>
-     <th>Name</th>
-     <th>Email</th>
-     <th>Role</th>
-     <th></th>
-     <th></th>
-    </tr>
-   </thead>
-   <tbody>
-    @for (item of members; track $index) {
-    <tr>
-     <td>{{$index + 1}}</td>
-     <td>{{item.status || "Unknown"}}</td>
-     <td>{{item.firstName}} {{item.lastName}}</td>
-     <td>{{item.workEmail}}</td>
-     <td>{{item.role || "Pending.."}}</td>
-     <td><input type="button" class="custom-button" value="Edit" id="{{item.id}}" /></td>
-     <td><input type="button" class="custom-button" value="View" id="{{item.id}}" (click)="onView(item.id)" /></td>
-    </tr>
+  <!--Member table-->
+  <div class="col-md-12 custom-border">
+    @if(members.length > 0 ){
+    <table class="table table-responsive-md text-light table-dark-custom">
+      <thead class="center">
+        <tr>
+
+          <th>Status</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of members; track $index) {
+        <tr>
+
+          <td>{{item.status || "Unknown"}}</td>
+          <td>{{item.firstName}} {{item.lastName}}</td>
+          <td>{{item.workEmail}}</td>
+          <td>{{item.role || "Pending.."}}</td>
+          <td><i class="bi bi-pencil-square" style="cursor: pointer;" (click)="onView(item.id)"></i></td>
+          <td>
+            <i class="bi bi-eye-slash" style="cursor: pointer;" (click)="onView(item.id)"></i>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="row">
+      <div class="col-10">
+        <ul class="pagination mb-0">
+
+          <!-- Prev -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link custom-button" (click)="getMembers(currentPage - 1)">Previous</button>
+          </li>
+
+          <!-- Numbered Page Buttons -->
+          <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
+            <button class="page-link custom-button" (click)="getMembers(page)">
+              {{ page }}
+            </button>
+          </li>
+
+          <!-- Next -->
+          <li class="page-item" [class.disabled]="currentPage === totalCount">
+            <button class="page-link custom-button" (click)="getMembers(currentPage + 1)">Next</button>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-2 col-md-2 col-sm-6">
+        <p>Showing {{remainPage}} of {{totalCount}} </p>
+      </div>
+
+    </div>
+
+
     }
-   </tbody>
-  </table>
+    @else{
+    <h5>No data were found</h5>
+    }
 
-  <!-- Pagination Controls -->
-  <nav>
-   <ul class="pagination mb-0">
-
-    <!-- Prev -->
-    <li class="page-item" [class.disabled]="currentPage === 1">
-     <button class="page-link" (click)="getMembers(currentPage - 1)">Previous</button>
-    </li>
-
-    <!-- Numbered Page Buttons -->
-    <li class="page-item" *ngFor="let page of pageNumbers" [class.active]="page === currentPage">
-     <button class="page-link" (click)="getMembers(page)">
-      {{ page }}
-     </button>
-    </li>
-
-    <!-- Next -->
-    <li class="page-item" [class.disabled]="currentPage === totalCount">
-     <button class="page-link" (click)="getMembers(currentPage + 1)">Next</button>
-    </li>
-
-   </ul>
-   <p>Showing {{totalCount}} of {{remainPage}}</p>
-  </nav>
-
-
-  }
-  @else{
-  <h5>No data were found</h5>
-  }
-
- </div>
-
- <div class="col-md-12 col-lg-12 col-sm-12 mt-2 custom-border" *ngIf="showModal">
-  <div class="container">
-   <div class="row mb-2">
-    <div class="col-md-3 fw-bold">Name:</div>
-    <div class="col-md-3">{{ selectMember?.firstName }} {{ selectMember?.lastName }}</div>
-
-    <div class="col-md-3 fw-bold">Email:</div>
-    <div class="col-md-3">{{ selectMember?.workEmail }}</div>
-   </div>
-
-   <div class="row mb-2">
-    <div class="col-md-3 fw-bold">Status:</div>
-    <div class="col-md-3">{{ selectMember?.status || 'Unknown'}}</div>
-
-    <div class="col-md-3 fw-bold">Repo:</div>
-    <div class="col-md-3">{{ selectMember?.repo || 'Unknown' }}</div>
-   </div>
   </div>
- </div>
+
+  <!-- <div class="col-md-4">
+      <div class="col-md-12 col-lg-12 col-sm-12 mt-2 custom-border">
+        <div class="container">
+          <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Name:</div>
+            <div class="col-md-3">{{ selectMember?.firstName }} {{ selectMember?.lastName }}</div>
+
+            <div class="col-md-3 fw-bold">Email:</div>
+            <div class="col-md-3">{{ selectMember?.workEmail }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-3 fw-bold">Status:</div>
+            <div class="col-md-3">{{ selectMember?.status || 'Unknown'}}</div>
+
+            <div class="col-md-3 fw-bold">Repo:</div>
+            <div class="col-md-3">{{ selectMember?.repo || 'Unknown' }}</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+  <!--Modal for page edit -->
+  <div class="modal fade modal-lg" #memberModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Member Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 col-lg-12 col-sm-12 mt-2 custom-border">
+            <div class="container">
+              <div class="row mb-2">
+                <div class="col-md-3 fw-bold">Name:</div>
+                <div class="col-md-3">{{ selectMember?.firstName }} {{ selectMember?.lastName }}</div>
+
+                <div class="col-md-3 fw-bold">Status:</div>
+                <div class="col-md-3">{{ selectMember?.Status || 'Unknown' }}</div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-md-3 fw-bold">Email:</div>
+                <div class="col-md-3">{{ selectMember?.workEmail || 'NA'}}</div>
+
+                <div class="col-md-3 fw-bold">Repo:</div>
+                <div class="col-md-3">{{ selectMember?.repo || 'Unknown' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="custom-button" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="custom-button">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
