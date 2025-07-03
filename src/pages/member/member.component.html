@@ -1,62 +1,72 @@
 <div class="container-fluid">
- <h5 class="text-light mb-4">Create New Member</h5>
+        <h5 class="text-light mb-4">Create New Member</h5>
 
- <form>
-  <div class=" col-md-12 col-lg-12 col-sm-6 custom-border">
-   <div class="row mb-3 align-items-center">
-    <label for="firstname" class="col-sm-4 col-form-label text-light">First Name</label>
-    <div class="col-sm-8">
-     <input type="text" id="name" class="form-control custom-textbox" placeholder="First Name" />
-    </div>
-   </div>
+        <form *ngIf="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+                <div class="col-md-12 col-lg-12 col-sm-6 custom-border">
+                        <div class="row mb-3 align-items-center">
+                                <label for="firstname" class="col-sm-4 col-form-label text-light">First Name</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="firstName" type="text"
+                                                class="form-control custom-textbox" placeholder="First Name" />
+                                </div>
+                        </div>
 
-   <!-- Repeat for more fields -->
-   <div class="row mb-3 align-items-center">
-    <label for="lastname" class="col-sm-4 col-form-label text-light">Last Name</label>
-    <div class="col-sm-8">
-     <input type="text" id="lastname" class="form-control custom-textbox" placeholder="Last Name" />
-    </div>
-   </div>
+                        <!-- Repeat for more fields -->
+                        <div class="row mb-3 align-items-center">
+                                <label for="lastname" class="col-sm-4 col-form-label text-light">Last Name</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="lastName" type="text"
+                                                class="form-control custom-textbox" placeholder="Last Name" />
+                                </div>
+                        </div>
 
-   <div class="row mb-3 align-items-center">
-    <label for="email" class="col-sm-4 col-form-label text-light">Email</label>
-    <div class="col-sm-8">
-     <input type="email" id="email" class="form-control custom-textbox" placeholder="Email" />
-    </div>
-   </div>
+                        <div class="row mb-3 align-items-center">
+                                <label for="email" class="col-sm-4 col-form-label text-light">Email</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="email" type="email" id="email"
+                                                class="form-control custom-textbox" placeholder="Email" />
+                                </div>
+                        </div>
 
+                        <div class="row mb-3 align-items-center">
+                                <label for="repo" class="col-sm-4 col-form-label text-light">Repo</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="gitRepo" type="text" class="form-control custom-textbox"
+                                                placeholder="Repository Name" />
+                                </div>
+                        </div>
 
-   <div class="row mb-3 align-items-center">
-    <label for="repo" class="col-sm-4 col-form-label text-light">Repo</label>
-    <div class="col-sm-8">
-     <input type="text" id="repo" class="form-control custom-textbox" placeholder="Repository Name" />
-    </div>
-   </div>
+                        <div class="row mb-3 align-items-center">
+                                <label for="statusToggle" class="col-sm-4 col-form-label text-light">Status</label>
+                                <div class="col-sm-8">
+                                        <div class="form-check form-switch d-flex align-items-center">
+                                                <input type="checkbox" formControlName="isActive"
+                                                        class="form-check-input toggle-switch" id="statusToggle"
+                                                        name="status" (change)="toggleStatus()" [ngClass]="{
+                                                                'switch-active': form.get('isActive')?.value === true,
+                                                                'switch-inactive': form.get('isActive')?.value === false
+                                                        }" />
+                                        </div>
+                                </div>
+                        </div>
 
-   <div class="row mb-3 align-items-center">
-    <label for="statusToggle" class="col-sm-4 col-form-label text-light">Status</label>
-    <div class="col-sm-8">
-     <div class="form-check form-switch d-flex align-items-center">
-      <input class="form-check-input toggle-switch" type="checkbox" id="statusToggle" name="status" />
-      <label class="form-check-label text-light ms-2" for="statusToggle">
+                        <!-- Submit Button -->
+                        <div class="row">
+                                <div class="col-sm-6 offset-sm-4">
+                                        <!--<button type="submit" class="btn btn-warning px-4">Create</button> -->
+                                        @if(memberId){
+                                        <button type="submit" class="custom-button">
+                                                <i class="bi bi-person-plus me-1"></i> Update Member
+                                        </button>
+                                        }
+                                        @else{
+                                        <button type="submit" class="custom-button">
+                                                <i class="bi bi-person-plus me-1"></i> Create Member
+                                        </button>
+                                        }
 
-      </label>
-     </div>
-    </div>
-   </div>
-
-   <!-- Submit Button -->
-   <div class="row">
-    <div class="col-sm-6 offset-sm-4">
-     <!--<button type="submit" class="btn btn-warning px-4">Create</button> -->
-     <button type="submit" class="custom-button">
-      <i class="bi bi-person-plus me-1"></i> Create Member
-     </button>
-
-    </div>
-   </div>
-  </div>
-
-
- </form>
+                                </div>
+                        </div>
+                </div>
+        </form>
 </div>

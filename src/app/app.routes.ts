@@ -13,7 +13,7 @@ export const routes: Routes = [
   children: [
    { path: '', redirectTo: 'home', pathMatch: 'full' },
    { path: 'home', component: HomeComponent },
-   { path: 'member/createmember', component: MemberComponent },
+   { path: 'member/createmember/:id', component: MemberComponent },
    { path: 'member/memberlist', component: MemberlistComponent },
    { path: 'tasks', component: TasksComponent },
   ]

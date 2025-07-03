@@ -1,12 +1,11 @@
-
 .custom-border {
   border: #555 1px solid;
-    padding: 15px;
-    border-radius: 5px;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 .custom-button {
- background-color: #292b2b;
+  background-color: #292b2b;
   border: #555 2px solid;
   color: #f1c40f;
   padding: 10px 20px;
@@ -25,8 +24,8 @@
 
 .custom-textbox {
   background-color: #292b2b;
-    color: white;
-    border: 1px solid #555;
+  color: white;
+  border: 1px solid #555;
 }
 
 ::placeholder {
@@ -34,7 +33,6 @@
   opacity: 1;
   /* Ensure full visibility */
 }
-
 
 .toggle-switch {
   width: 48px;
@@ -51,8 +49,22 @@
   /* Bootstrap Primary */
 }
 
+.toggle-switch-unchecked {
+  background-color: #555;
+  /* Bootstrap Primary */
+}
+
 .toggle-switch:focus {
   box-shadow: none;
 }
+.switch-active {
+  /* background-color: #28a745 !important; /* green 
+  border-color: #28a745 !important; */
+  background-color: #f1c40f;
+}
 
-
+.switch-inactive {
+  /* background-color: #dc3545 !important; /* red 
+  border-color: #dc3545 !important; */
+  background-color: #555;
+}

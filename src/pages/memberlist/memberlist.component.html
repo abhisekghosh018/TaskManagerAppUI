@@ -2,16 +2,21 @@
   <h5 class="text-light mb-4">Member Details</h5>
   <!--Filter bar-->
   <div class="row align-items-center mb-3">
-    <div class="col-md-3">
+    <div class="col-md-1">
       <label for="searchTxt" class="form-label text-light">Filter by</label>
     </div>
 
-    <div class="col-md-5">
-      <input type="text" id="searchTxt" class="form-control custom-textbox"
-        placeholder="Filter member by First name, Last name and Email" />
+    <div class="col-md-3">
+      <input type="text" id="searchTxt" class="form-control custom-textbox" placeholder="Filter member by First name" />
+    </div>
+    <div class="col-md-3">
+      <input type="text" id="searchTxt" class="form-control custom-textbox" placeholder="Filter member by Last name " />
+    </div>
+    <div class="col-md-3">
+      <input type="text" id="searchTxt" class="form-control custom-textbox" placeholder="Filter member by Email" />
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-2">
       <button type="submit" class="custom-button">
         <i class="bi bi-funnel me-1"></i> Filter
       </button>
@@ -31,21 +36,23 @@
           <th>Email</th>
           <th>Role</th>
           <th></th>
-          <th></th>
+
         </tr>
       </thead>
       <tbody>
         @for (item of members; track $index) {
         <tr>
-
-          <td>{{item.status || "Unknown"}}</td>
+          <td>
+            <span [ngClass]="{
+              'status-circle': true,
+              'active': item.isActive === true,
+              'inactive': item.isActive === false
+            }"></span>
+          </td>
           <td>{{item.firstName}} {{item.lastName}}</td>
           <td>{{item.workEmail}}</td>
           <td>{{item.role || "Pending.."}}</td>
-          <td><i class="bi bi-pencil-square" style="cursor: pointer;" (click)="onView(item.id)"></i></td>
-          <td>
-            <i class="bi bi-eye-slash" style="cursor: pointer;" (click)="onView(item.id)"></i>
-          </td>
+          <td><i class="bi bi-pencil-square" style="cursor: pointer;" (click)="onEdit(item.id)"> </i></td>
         </tr>
         }
       </tbody>
@@ -53,7 +60,7 @@
 
     <!-- Pagination Controls -->
     <div class="row">
-      <div class="col-10">
+      <div class="col-8">
         <ul class="pagination mb-0">
 
           <!-- Prev -->
@@ -75,7 +82,19 @@
 
         </ul>
       </div>
-      <div class="col-2 col-md-2 col-sm-6">
+      <div class="col-2">
+        <div class="col-3">
+          <select id="pazeSize" class="form-select custom-textbox">
+            <option value="low">10</option>
+            <option value="medium">20</option>
+            <option value="high">30</option>
+            <option value="high">40</option>
+            <option value="high">50</option>
+          </select>
+
+        </div>
+      </div>
+      <div class="col-2">
         <p>Showing {{remainPage}} of {{totalCount}} </p>
       </div>
 

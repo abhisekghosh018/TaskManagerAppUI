@@ -39,3 +39,34 @@
   border-radius: 5px;
   font-size: 14px;
 }
+
+.status-circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #f1c40f;
+  background-color: #f1c40f;
+  margin: 0 3px;
+  position: relative;
+  vertical-align: center;
+}
+
+/* Arrow inside the circle when active */
+.status-circle.active::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border: solid 2px white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Inactive just a gray circle */
+.status-circle.inactive {
+  background-color: #555;
+  border-color: #ccc;
+}

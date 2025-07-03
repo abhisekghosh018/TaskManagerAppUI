@@ -4,6 +4,7 @@ import { CommonModule, NgIf } from '@angular/common';
 
 // Import Bootstrap JS (make sure bootstrap is installed via npm)
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Router } from '@angular/router';
 
 // Declare bootstrap for TypeScript
 declare var bootstrap: any;
@@ -27,7 +28,7 @@ export class MemberlistComponent implements OnInit {
   pageSize: number = 10;
   currentPage: number = 1;
 
-  constructor(private memberService: MemberService) { }
+  constructor(private memberService: MemberService, private router: Router) { }
 
   ngOnInit(): void {
     this.getMembers(this.currentPage)
@@ -38,7 +39,7 @@ export class MemberlistComponent implements OnInit {
   }
 
   getMembers(page: number): void {
-
+    debugger
     this.currentPage = page;
 
     this.memberService.getMembers(this.currentPage).subscribe({
@@ -77,19 +78,21 @@ export class MemberlistComponent implements OnInit {
     return remaining > 0 ? remaining : 0;
   }
 
-  onView(id: string) {
+  onEdit(id: string) {
 
-    this.memberService.getMemberByid(id).subscribe({
-      next: (res) => {
+    this.router.navigate(['member/createmember', id])
 
-        this.selectMember = res;
-        console.log("Data in component", this.selectMember)
-        this.modalInstance.show();
-      },
-      error(err) {
-        console.error("Member API error", err)
-      },
-    });
+    // this.memberService.getMemberByid(id).subscribe({
+    //   next: (res) => {
+
+    //     this.selectMember = res;
+    //     console.log("Data in component", this.selectMember)
+    //     this.modalInstance.show();
+    //   },
+    //   error(err) {
+    //     console.error("Member API error", err)
+    //   },
+    // });
   }
 
   closeModal() {
