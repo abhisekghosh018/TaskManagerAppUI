@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, viewChild, } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, viewChild, } from '@angular/core';
 import { member, MemberService } from '../../services/member.service';
 import { CommonModule, NgIf } from '@angular/common';
 
 // Import Bootstrap JS (make sure bootstrap is installed via npm)
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 // Declare bootstrap for TypeScript
 declare var bootstrap: any;
@@ -12,7 +13,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'taskly-memberlist',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './memberlist.component.html',
   styleUrl: './memberlist.component.css'
 })
@@ -21,6 +22,10 @@ export class MemberlistComponent implements OnInit {
   members: member[] = [];
   selectMember: any;
   showModal = false;
+
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
 
   @ViewChild('memberModal') modelRef!: ElementRef
   modalInstance: any;
@@ -39,12 +44,12 @@ export class MemberlistComponent implements OnInit {
   }
 
   getMembers(page: number): void {
-    debugger
+
     this.currentPage = page;
 
     this.memberService.getMembers(this.currentPage).subscribe({
       next: (res) => {
-        console.log("API Response:", res);
+        // console.log("API Response:", res);
         this.members = res.data;
         this.totalCount = res.totalCount;
       },
@@ -79,20 +84,7 @@ export class MemberlistComponent implements OnInit {
   }
 
   onEdit(id: string) {
-
-    this.router.navigate(['member/createmember', id])
-
-    // this.memberService.getMemberByid(id).subscribe({
-    //   next: (res) => {
-
-    //     this.selectMember = res;
-    //     console.log("Data in component", this.selectMember)
-    //     this.modalInstance.show();
-    //   },
-    //   error(err) {
-    //     console.error("Member API error", err)
-    //   },
-    // });
+    this.router.navigate(['member/updateemember', id])
   }
 
   closeModal() {
@@ -100,8 +92,17 @@ export class MemberlistComponent implements OnInit {
     this.showModal = false;
   }
 
-  // onFilter(irstName: string, lastName: string, email: string, page: number) {
-
-  // }
+  onFilter(firstName: string, lastName: string, email: string, page: number) {
+    debugger
+    this.memberService.filterMember(firstName, lastName, email, page).subscribe({
+      next: (res) => {
+        this.members = res.data;
+        console.log("Filter data", res.data)
+      },
+      error: (err) => {
+        console.log("Filter data", err)
+      }
+    })
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, Route, Router, } from '@angular/router';
 import { MemberService } from '../../services/member.service';
 import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 export class MemberComponent {
 
 
-  constructor(private route: ActivatedRoute, private memberService: MemberService) { }
+  constructor(private route: ActivatedRoute,
+    private memberService: MemberService, private router: Router) { }
 
   memberId: string = "";
 
@@ -31,7 +32,8 @@ export class MemberComponent {
 
   ngOnInit(): void {
 
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id')!; // gets the id from param
+
     this.memberId = id
     this.memberService.getMemberByid(id).subscribe({
       next: (res) => {
@@ -73,13 +75,14 @@ export class MemberComponent {
   //   return Array.from(binaryStr).map(ch => ch.charCodeAt(0));
   // }
   onSubmit() {
-    debugger
+
     if (this.form.valid) {
       console.log(this.form.value)
       const member = this.form.value;
       this.memberService.updateMember(member).subscribe({
         next: (res) => {
           alert("Member updated successfully");
+          this.router.navigate(['member/memberlist'])
           console.log(res);
         },
         error(err) {
