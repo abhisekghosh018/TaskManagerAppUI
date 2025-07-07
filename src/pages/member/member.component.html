@@ -2,13 +2,23 @@
         <h5 class="text-light mb-4">Create New Member</h5>
 
         <form *ngIf="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+                <!--Update Form-->
+                @if(memberId){
                 <div class="col-md-12 col-lg-12 col-sm-6 custom-border">
                         <div class="row mb-3 align-items-center">
                                 <label for="firstname" class="col-sm-4 col-form-label text-light">First Name</label>
                                 <div class="col-sm-8">
                                         <input formControlName="firstName" type="text"
                                                 class="form-control custom-textbox" placeholder="First Name" />
+                                        <div *ngIf="form.get('firstName')?.invalid || form.get('firstName')?.touched">
+                                                <small class="text-danger"
+                                                        *ngIf="form.get('firstName')?.errors?.['required']">First
+                                                        name
+                                                        is
+                                                        required</small>
+                                        </div>
                                 </div>
+
                         </div>
 
                         <!-- Repeat for more fields -->
@@ -17,14 +27,28 @@
                                 <div class="col-sm-8">
                                         <input formControlName="lastName" type="text"
                                                 class="form-control custom-textbox" placeholder="Last Name" />
+                                        <div *ngIf="form.get('lastName')?.invalid || form.get('lastName')?.touched">
+                                                <small class="text-danger"
+                                                        *ngIf="form.get('lastName')?.errors?.['required']">
+                                                        Last name
+                                                        is
+                                                        required
+                                                </small>
+                                        </div>
                                 </div>
                         </div>
 
                         <div class="row mb-3 align-items-center">
-                                <label for="email" class="col-sm-4 col-form-label text-light">Email</label>
+                                <label for="workEmail" class="col-sm-4 col-form-label text-light">Email</label>
                                 <div class="col-sm-8">
-                                        <input formControlName="email" type="email" id="email"
+                                        <input formControlName="workEmail" type="email" id="email"
                                                 class="form-control custom-textbox" placeholder="Email" />
+                                        <div *ngIf="form.get('workEmail')?.invalid || form.get('workEmail')?.touched">
+                                                <span class="text-danger" *ngIf="form.get('required')?.errors">Email is
+                                                        required</span>
+                                                <span class="text-danger" *ngIf="form.get('workEmail')?.errors">Enter a
+                                                        valid email</span>
+                                        </div>
                                 </div>
                         </div>
 
@@ -43,10 +67,95 @@
                                                 <input type="checkbox" formControlName="isActive"
                                                         class="form-check-input toggle-switch" id="statusToggle"
                                                         name="status" (change)="toggleStatus()" [ngClass]="{
-                                                                'switch-active': form.get('isActive')?.value === true,
-                                                                'switch-inactive': form.get('isActive')?.value === false
-                                                        }" />
+                                                                                                'switch-active': form.get('isActive')?.value === true,
+                                                                                                'switch-inactive': form.get('isActive')?.value === false
+                                                                                        }" />
                                         </div>
+                                </div>
+                        </div>
+
+                        <!-- Update Button -->
+                        <div class="row">
+                                <div class="col-sm-6 offset-sm-4">
+
+                                        <button type="submit" class="custom-button">
+                                                <i class="bi bi-person-plus me-1"></i> Update Member
+                                        </button>
+                                </div>
+                        </div>
+                </div>
+                }
+                <!--Save Form-->
+                @else{
+                <div class="col-md-12 col-lg-12 col-sm-6 custom-border">
+                        <div class="row mb-3 align-items-center">
+                                <label for="firstname" class="col-sm-4 col-form-label text-light">First Name</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="firstName" type="text"
+                                                class="form-control custom-textbox" placeholder="First Name" />
+                                        <div *ngIf="form.get('firstName')?.invalid || form.get('firstName')?.touched">
+                                                <small class="text-danger"
+                                                        *ngIf="form.get('firstName')?.errors?.['required']">First
+                                                        name
+                                                        is
+                                                        required</small>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                                <label for="lastname" class="col-sm-4 col-form-label text-light">Last Name</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="lastName" type="text"
+                                                class="form-control custom-textbox" placeholder="Last Name" />
+                                        <div *ngIf="form.get('lastName')?.touched || form.get('lastName')?.invalid">
+                                                <small class="text-danger"
+                                                        *ngIf="form.get('lastName')?.errors?.['required']">
+                                                        Last name
+                                                        is
+                                                        required
+                                                </small>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                                <label for="workEmail" class="col-sm-4 col-form-label text-light">Email</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="workEmail" type="email" id="email"
+                                                class="form-control custom-textbox" placeholder="Email" />
+                                        <div *ngIf="form.get('workEmail')?.invalid || form.get('workEmail')?.touched">
+                                                <span class="text-danger"
+                                                        *ngIf="form.get('workEmail')?.errors?.['required']">Email is
+                                                        required</span>
+                                                <span class="text-danger"
+                                                        *ngIf="form.get('workEmail')?.errors?.['workEmail']">Enter a
+                                                        valid email</span>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="row mb-3 align-items-center">
+                                <label for="email" class="col-sm-4 col-form-label text-light">Password</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="password" type="password"
+                                                class="form-control custom-textbox" placeholder="Password" />
+                                        <div *ngIf="form.get('password')?.invalid || form.get('password')?.touched">
+                                                <span class="text-danger"
+                                                        *ngIf="form.get('password')?.errors?.['required']">Password
+                                                        is
+                                                        required</span>
+                                                <span class="text-danger"
+                                                        *ngIf="form.get('password')?.errors?.['minlength']">The
+                                                        password should be 8 chracters log</span>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row mb-3 align-items-center">
+                                <label for="repo" class="col-sm-4 col-form-label text-light">Repo</label>
+                                <div class="col-sm-8">
+                                        <input formControlName="gitRepo" type="text" class="form-control custom-textbox"
+                                                placeholder="Repository Name" />
                                 </div>
                         </div>
 
@@ -54,19 +163,13 @@
                         <div class="row">
                                 <div class="col-sm-6 offset-sm-4">
                                         <!--<button type="submit" class="btn btn-warning px-4">Create</button> -->
-                                        @if(memberId){
-                                        <button type="submit" class="custom-button">
-                                                <i class="bi bi-person-plus me-1"></i> Update Member
-                                        </button>
-                                        }
-                                        @else{
                                         <button type="submit" class="custom-button">
                                                 <i class="bi bi-person-plus me-1"></i> Create Member
                                         </button>
-                                        }
-
                                 </div>
                         </div>
                 </div>
+                }
+
         </form>
 </div>

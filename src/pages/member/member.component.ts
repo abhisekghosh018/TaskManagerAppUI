@@ -17,17 +17,18 @@ export class MemberComponent {
     private memberService: MemberService, private router: Router) { }
 
   memberId: string = "";
+  isUpdate = false
 
   form: FormGroup = new FormGroup({
-    firstName: new FormControl(''),
-    email: new FormControl(''),
-    lastName: new FormControl(''),
+    firstName: new FormControl('', Validators.required),
+    workEmail: new FormControl('', [Validators.required, Validators.email]),
+    lastName: new FormControl('', [Validators.required]),
     isActive: new FormControl(false),
     gitRepo: new FormControl(''),
     rowVersion: new FormControl(''),
     role: new FormControl(''),
-    id: new FormControl('')
-
+    id: new FormControl(''),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
   ngOnInit(): void {
@@ -43,14 +44,15 @@ export class MemberComponent {
 
         this.form = new FormGroup({
 
-          firstName: new FormControl(res.data.firstName, Validators.required),
-          lastName: new FormControl(res.data.lastName, Validators.required),
-          email: new FormControl(res.data.workEmail, [Validators.required, Validators.email]),
+          firstName: new FormControl(res.data.firstName),
+          lastName: new FormControl(res.data.lastName),
+          email: new FormControl(res.data.workEmail),
           isActive: new FormControl(res.data.isActive),
           gitRepo: new FormControl(res.data.gitRepo),
           role: new FormControl(res.data.role),
           rowVersion: new FormControl(res.data.rowVersion),
-          id: new FormControl(id)
+          id: new FormControl(id),
+          password: new FormControl(res.data.password)
         });
       },
       error(err) {
@@ -70,28 +72,48 @@ export class MemberComponent {
     console.log(isActive);
   }
 
-  // base64ToByteArray(base64: string): number[] {
-  //   const binaryStr = atob(base64);
-  //   return Array.from(binaryStr).map(ch => ch.charCodeAt(0));
-  // }
-  onSubmit() {
 
+  onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value)
       const member = this.form.value;
-      this.memberService.updateMember(member).subscribe({
-        next: (res) => {
-          alert("Member updated successfully");
-          this.router.navigate(['member/memberlist'])
-          console.log(res);
-        },
-        error(err) {
-          console.log('Update Error', err)
-        }
-      });
+
+      console.log(this.form.value)
+      debugger
+      if (this.memberId === null) {
+
+        this.memberService.createMember(member).subscribe({
+
+          next: (res) => {
+            alert("Member created successfully");
+            console.log(res);
+            console.log('Backend response for Insert member', res);
+          },
+          error(err) {
+            console.log('Insert failed Error', err);
+          }
+        });
+      }
+      else {
+        this.memberService.updateMember(member).subscribe({
+          next: (res) => {
+            alert("Member updated successfully");
+            this.router.navigate(['member/memberlist'])
+          },
+          error(err) {
+            console.log('Update failed Error', err);
+          }
+        });
+      }
     }
     else {
-      console.log('Form is invalid.');
+      Object.keys(this.form.controls).forEach(key => {
+        const control = this.form.get(key);
+        if (control && control.invalid) {
+          console.log(`❌ ${key} is invalid. Errors:`, control.errors);
+        }
+      });
+      return;
+      console.log('Form is invalid.', this.form);
     }
   }
 }

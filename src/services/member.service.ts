@@ -12,7 +12,19 @@ export interface member {
   isActive: boolean;
   role: string;
   gitRepo: string;
-  rowVersion: string
+  rowVersion: string,
+  password: string,
+  organizationId: string,
+}
+
+export interface createMember {
+  firstName: string;
+  lastName: string;
+  workEmail: string;
+  gitRepo: string;
+  password: string,
+  organizationId: string,
+  role: string
 }
 
 export interface finterModel {
@@ -89,7 +101,18 @@ export class MemberService {
     );
   }
 
-  updateMember(member: member) {
+  createMember(member: createMember) {
+    debugger
+    const apiUrl = `${API_CONFING.baseUrLLocal}member/createmember`;
+    return this.http.post<any>(apiUrl, member).pipe(map(response => {
+      return {
+        data: response.data,
+      } as singleMemberResponse<createMember>
+    })
+    )
+  }
+
+  updateMember(member: createMember) {
     const apiUrl = `${API_CONFING.baseUrl}member/updatemember`;
     return this.http.put<member>(apiUrl, member)
   }
